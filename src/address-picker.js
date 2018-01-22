@@ -5,11 +5,16 @@ function init(Survey, $) {
         title: "address",
         iconName: "fa fa-address-card-o",
         htmlTemplate: "" +
-        "<div class='form-inline'>" +
-        "   <div>" +
-        "       <select name='province' class='form-control'></select>" +
-        "       <select name='city' class='form-control'></select>" +
-        "       <select name='district' class='form-control'></select>" +
+        "<div>" +
+        "   <div class='form-inline'>" +
+        "       <div>" +
+        "           <select name='province' class='form-control'></select>" +
+        "           <select name='city' class='form-control'></select>" +
+        "           <select name='district' class='form-control'></select>" +
+        "       </div>" +
+        "   </div>" +
+        "   <div class='form-inline mt-2'>" +
+        "       <textarea name='street' class='form-control' style='width: 100%'></textarea>" +
         "   </div>" +
         "</div>",
         widgetIsLoaded: function () {
@@ -24,22 +29,33 @@ function init(Survey, $) {
             Survey.JsonObject.metaData.addProperties("address", {
                 province: '---- 所在省 ----',
                 city: '---- 所在市 ----',
-                district: '---- 所在区 ----'
+                district: '---- 所在区 ----',
+                street: null
             });
         },
         afterRender: function (question, el) {
-            var $distpicker = $(el);
-            $distpicker.distpicker(question.value);
-            var province = $distpicker.find("select[name='province']");
-            var city = $distpicker.find("select[name='city']");
-            var district = $distpicker.find("select[name='district']");
-            $distpicker.find("select").on("change", function (e) {
+            var $address = $(el);
+            var province = $address.find("select[name='province']");
+            var city = $address.find("select[name='city']");
+            var district = $address.find("select[name='district']");
+            var street = $address.find("textarea[name='street']");
+            var value = question.value;
+            $address.distpicker(value);
+
+            if (value && value.street) {
+                street.val(value.street);
+            }
+
+            var saveAddress = function (e) {
                 question.value = {
                     province: province.val(),
                     city: city.val(),
-                    district: district.val()
+                    district: district.val(),
+                    street: street.val()
                 };
-            });
+            };
+            $address.find("select").on("change", saveAddress);
+            street.on("change", saveAddress);
         },
         willUnmount: function (question, el) {
             if (question.address) {
