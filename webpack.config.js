@@ -60,7 +60,7 @@ module.exports = function (options) {
     var packagePath = `./${outputFolder}`;
 
     var targetPackageJson = {
-        name: `surveyjs-widgets`,
+        name: `surveyjs-widgets-palan`,
         version: packageJson.version,
         description: "Custom widgets for the SurveyJS library",
         keywords: [
@@ -77,7 +77,7 @@ module.exports = function (options) {
         main: main + ".js",
         repository: {
             type: "git",
-            url: "https://github.com/surveyjs/widgets.git"
+            url: "https://github.com/YuanZhencai/widgets.git"
         },
         dependencies: {
             jquery: "^3.2.1"
