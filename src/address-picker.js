@@ -14,7 +14,7 @@ function init(Survey, $) {
         "       </div>" +
         "   </div>" +
         "   <div class='form-inline mt-2'>" +
-        "       <textarea name='street' class='form-control' style='width: 100%'></textarea>" +
+        "       <textarea name='street' class='form-control' style='width: 100%' placeholder='详细地址，例如街道名称，门牌号码，楼层和房间号等信息'></textarea>" +
         "   </div>" +
         "</div>",
         widgetIsLoaded: function () {
